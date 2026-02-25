@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowUpRight, Menu, X, Instagram, Dribbble, Linkedin } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useMemo, useState } from 'react';
+import { projects } from '@/lib/projects';
 
 const reveal = {
   hidden: { opacity: 0, y: 40 },
@@ -37,32 +38,6 @@ const services = [
   }
 ];
 
-const projects = [
-  {
-    title: 'Noir Atelier',
-    category: 'Luxury Fashion',
-    image:
-      'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80'
-  },
-  {
-    title: 'Auric Residences',
-    category: 'Real Estate',
-    image:
-      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80'
-  },
-  {
-    title: 'Sora Fine Dining',
-    category: 'Hospitality',
-    image:
-      'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80'
-  },
-  {
-    title: 'Helio Timepieces',
-    category: 'Product Branding',
-    image:
-      'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=1200&q=80'
-  }
-];
 
 function PremiumCursor() {
   const [point, setPoint] = useState({ x: 0, y: 0 });
@@ -237,7 +212,7 @@ export default function Site() {
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ delay: idx * 0.06 }}
               >
-                <Link href={`/projects/${project.title.toLowerCase().replace(/\s+/g, '-')}`}>
+                <Link href={`/projects/${project.slug}`}>
                   <div className="imageWrap">
                     <Image
                       src={project.image}

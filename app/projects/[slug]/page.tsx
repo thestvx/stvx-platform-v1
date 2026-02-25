@@ -1,18 +1,31 @@
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { projects } from '@/lib/projects';
 
-export default function ProjectDetail({ params }: { params: { slug: string } }) {
-  const title = params.slug
-    .split('-')
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(' ');
+type ProjectPageProps = {
+  params: {
+    slug: string;
+  };
+};
+
+export function generateStaticParams() {
+  return projects.map((project) => ({ slug: project.slug }));
+}
+
+export default function ProjectDetail({ params }: ProjectPageProps) {
+  const project = projects.find((item) => item.slug === params.slug);
+
+  if (!project) {
+    notFound();
+  }
 
   return (
     <main className="projectPage">
       <p className="sectionLabel">Project Detail</p>
-      <h1>{title}</h1>
+      <h1>{project.title}</h1>
       <p>
-        This project page is intentionally minimal and ready for case-study expansion with process, outcomes,
-        gallery blocks, and testimonials.
+        Category: {project.category}. This page is ready for case-study expansion with challenge, strategy,
+        visuals, and measurable outcomes.
       </p>
       <Link href="/" className="cta">
         Back Home
